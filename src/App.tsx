@@ -1,7 +1,11 @@
+import { Outlet } from 'react-router-dom'
+
 function App() {
   return (
     <>
-      <div className="text-9xl">hello world</div>
+      <header>1,23,4,5</header>
+      <Outlet></Outlet>
+      <footer>asdasdasdsad</footer>
     </>
   )
 }
