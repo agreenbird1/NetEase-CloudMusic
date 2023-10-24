@@ -11,8 +11,11 @@
     "commit": "git-cz"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
+    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.17.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.8.0",
