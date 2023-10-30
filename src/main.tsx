@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import 'normalize.css'
 import { RouterProvider } from 'react-router-dom'
+import 'normalize.css'
+import '@/assets/css/reset.css'
 
 import router from './router'
 
