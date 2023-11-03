@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
-  reducer: {},
+    reducer: {},
 })
 
 // 从 store 本身推断出 `RootState` 和 `AppDispatch` 类型
