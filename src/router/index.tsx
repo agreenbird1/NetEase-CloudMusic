@@ -25,23 +25,23 @@ const router = createHashRouter([
             element: <Recommend />,
           },
           {
-            path: 'toplist',
+            path: '/discovery/toplist',
             element: <TopList />,
           },
           {
-            path: 'playlist',
+            path: '/discovery/playlist',
             element: <TopList />,
           },
           {
-            path: 'djradio',
+            path: '/discovery/djradio',
             element: <DjRadio />,
           },
           {
-            path: 'artlist',
+            path: '/discovery/artlist',
             element: <ArtList />,
           },
           {
-            path: 'album',
+            path: '/discovery/album',
             element: <Album />,
           },
         ],

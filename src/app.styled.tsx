@@ -36,6 +36,25 @@ const AppHeader = styled.header`
       background: #000;
     }
   }
+  .search-input {
+    background: #fff;
+    color: #ccc;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    gap: 5px;
+    input {
+      font-size: 12px;
+      color: #aaa;
+    }
+  }
+  .login {
+    color: #ccc;
+    margin-left: 20px;
+    cursor: pointer;
+  }
 `
 
 const AppFooter = styled.footer`

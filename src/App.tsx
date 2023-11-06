@@ -1,35 +1,60 @@
-import { Link, Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { AppFooter, AppHeader } from './app.styled'
 
 function App() {
+  const navigate = useNavigate()
+  useEffect(() => {
+    navigate('/discovery')
+  }, [navigate])
   return (
     <>
       <AppHeader>
-        <div className="logo">
+        <Link className="logo" to="/discovery">
           <img
             src="http://p3.music.126.net/tBTNafgjNnTL1KlZMt7lVA==/18885211718935735.jpg"
             alt="logo"
           />
           <span>网易云音乐</span>
-        </div>
-        <Link className="link" to="">
+        </Link>
+        <Link className="link" to="/discovery">
+          发现音乐
+        </Link>
+        <Link className="link" to="/my">
           我的音乐
         </Link>
-        <Link className="link" to="">
+        <Link className="link" to="/friend">
           关注
         </Link>
-        <Link className="link" to="">
+        <Link
+          className="link"
+          target="_blank"
+          to="https://music.163.com/store/product"
+        >
           商城
         </Link>
-        <Link className="link" to="">
+        <Link
+          className="link"
+          target="_blank"
+          to="https://music.163.com/st/musician"
+        >
           音乐人
         </Link>
-        <Link className="link" to="">
+        <Link
+          className="link"
+          target="_blank"
+          to="https://music.163.com/st/ad-song"
+        >
           云推歌
         </Link>
-        <Link className="link" to="">
+        <Link className="link" to="/download">
           下载客户端
         </Link>
+        <div className="search-input">
+            <iconpark-icon name="search-9jg0dgeg"></iconpark-icon>
+            <input type="text" placeholder='音乐/视频/电台/用户' />
+        </div>
+        <div className='login'>登录</div>
       </AppHeader>
       <Outlet></Outlet>
       <AppFooter>
