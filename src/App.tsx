@@ -1,12 +1,17 @@
 import { useEffect } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { AppFooter, AppHeader } from './app.styled'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { AppFooter, AppHeader, AppWrapper } from './app.styled'
+import NavDecoration from '@/components/NavDecoration/index'
+import classnames from 'classnames'
 
 function App() {
   const navigate = useNavigate()
+  const location = useLocation()
+
   useEffect(() => {
-    navigate('/discovery')
-  }, [navigate])
+    // 防止其余地址刷新重定向
+    if (location.pathname == '/') navigate('/discovery')
+  }, [navigate, location])
   return (
     <>
       <AppHeader>
@@ -17,13 +22,28 @@ function App() {
           />
           <span>网易云音乐</span>
         </Link>
-        <Link className="link" to="/discovery">
+        <Link
+          className={classnames('link', {
+            active: location.pathname.startsWith('/discovery'),
+          })}
+          to="/discovery"
+        >
           发现音乐
         </Link>
-        <Link className="link" to="/my">
+        <Link
+          className={classnames('link', {
+            active: location.pathname.startsWith('/my'),
+          })}
+          to="/my"
+        >
           我的音乐
         </Link>
-        <Link className="link" to="/friend">
+        <Link
+          className={classnames('link', {
+            active: location.pathname.startsWith('/friend'),
+          })}
+          to="/friend"
+        >
           关注
         </Link>
         <Link
@@ -47,16 +67,24 @@ function App() {
         >
           云推歌
         </Link>
-        <Link className="link" to="/download">
+        <Link
+          className={classnames('link', {
+            active: location.pathname.startsWith('/download'),
+          })}
+          to="/download"
+        >
           下载客户端
         </Link>
         <div className="search-input">
-            <iconpark-icon name="search-9jg0dgeg"></iconpark-icon>
-            <input type="text" placeholder='音乐/视频/电台/用户' />
+          <iconpark-icon name="search-9jg0dgeg"></iconpark-icon>
+          <input type="text" placeholder="音乐/视频/电台/用户" />
         </div>
-        <div className='login'>登录</div>
+        <div className="login">登录</div>
       </AppHeader>
-      <Outlet></Outlet>
+      {!location.pathname.startsWith('/discovery') && <NavDecoration />}
+      <AppWrapper className="wrapper">
+        <Outlet></Outlet>
+      </AppWrapper>
       <AppFooter>
         <div className="footer-content">
           <ul className="links-wrapper">

@@ -6,6 +6,7 @@ const AppHeader = styled.header`
   justify-content: center;
   height: 70px;
   background: #242424;
+  min-width: 1330px;
   .logo {
     display: flex;
     align-items: center;
@@ -35,6 +36,20 @@ const AppHeader = styled.header`
       color: #fff;
       background: #000;
     }
+    &.active {
+      position: relative;
+      color: #fff;
+      background: #000;
+      &::before {
+        content: '';
+        position: absolute;
+        border: 6px solid transparent;
+        border-bottom: 6px solid #c20b0d;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+    }
   }
   .search-input {
     background: #fff;
@@ -57,8 +72,13 @@ const AppHeader = styled.header`
   }
 `
 
+const AppWrapper = styled.main`
+    min-width: 1330px;
+`
+
 const AppFooter = styled.footer`
   background: #f2f2f2;
+  min-width: 1330px;
   .footer-content {
     width: 980px;
     margin: 0 auto;
@@ -167,4 +187,4 @@ const AppFooter = styled.footer`
   }
 `
 
-export { AppHeader, AppFooter }
+export { AppHeader, AppFooter, AppWrapper }
