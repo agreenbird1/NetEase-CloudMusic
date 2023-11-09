@@ -10,11 +10,13 @@ import Discovery from '@/views/discovery/index'
 import ArtList from './../views/discovery/components/artlist/index'
 import DjRadio from './../views/discovery/components/djradio/index'
 import Album from './../views/discovery/components/album/index'
+import ErrorPage from '@/views/error/index'
 
 const router = createHashRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
