@@ -1,8 +1,13 @@
 import { useEffect } from 'react'
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom'
 import { AppFooter, AppHeader, AppWrapper } from './app.styled'
 import NavDecoration from '@/components/NavDecoration/index'
-import classnames from 'classnames'
 
 function App() {
   const navigate = useNavigate()
@@ -22,30 +27,15 @@ function App() {
           />
           <span>网易云音乐</span>
         </Link>
-        <Link
-          className={classnames('link', {
-            active: location.pathname.startsWith('/discovery'),
-          })}
-          to="/discovery"
-        >
+        <NavLink className="link" to="/discovery">
           发现音乐
-        </Link>
-        <Link
-          className={classnames('link', {
-            active: location.pathname.startsWith('/my'),
-          })}
-          to="/my"
-        >
+        </NavLink>
+        <NavLink className="link" to="/my">
           我的音乐
-        </Link>
-        <Link
-          className={classnames('link', {
-            active: location.pathname.startsWith('/friend'),
-          })}
-          to="/friend"
-        >
+        </NavLink>
+        <NavLink className="link" to="/friend">
           关注
-        </Link>
+        </NavLink>
         <Link
           className="link"
           target="_blank"
@@ -67,14 +57,9 @@ function App() {
         >
           云推歌
         </Link>
-        <Link
-          className={classnames('link', {
-            active: location.pathname.startsWith('/download'),
-          })}
-          to="/download"
-        >
+        <NavLink className="link" to="/download">
           下载客户端
-        </Link>
+        </NavLink>
         <div className="search-input">
           <iconpark-icon name="search-9jg0dgeg"></iconpark-icon>
           <input type="text" placeholder="音乐/视频/电台/用户" />

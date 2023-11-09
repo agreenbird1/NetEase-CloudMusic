@@ -1,6 +1,5 @@
 import type { FC, ReactNode } from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
-import classnames from 'classnames'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import DiscoveryWrapper from './index.styled'
 
 interface IProps {
@@ -12,52 +11,19 @@ const Discovery: FC<IProps> = () => {
   return (
     <DiscoveryWrapper>
       <nav>
-        <Link
-          className={classnames({ active: location.pathname == '/discovery' })}
+        <NavLink
           to="/discovery"
+          className={({ isActive }) =>
+            isActive && location.pathname == '/discovery' ? 'active' : ''
+          }
         >
           推荐
-        </Link>
-        <Link
-          className={classnames({
-            active: location.pathname == '/discovery/toplist',
-          })}
-          to="/discovery/toplist"
-        >
-          排行榜
-        </Link>
-        <Link
-          className={classnames({
-            active: location.pathname == '/discovery/playlist',
-          })}
-          to="/discovery/playlist"
-        >
-          歌单
-        </Link>
-        <Link
-          className={classnames({
-            active: location.pathname == '/discovery/djradio',
-          })}
-          to="/discovery/djradio"
-        >
-          主播电台
-        </Link>
-        <Link
-          className={classnames({
-            active: location.pathname == '/discovery/artlist',
-          })}
-          to="/discovery/artlist"
-        >
-          歌手
-        </Link>
-        <Link
-          className={classnames({
-            active: location.pathname == '/discovery/album',
-          })}
-          to="/discovery/album"
-        >
-          新碟上架
-        </Link>
+        </NavLink>
+        <NavLink to="/discovery/toplist">排行榜</NavLink>
+        <NavLink to="/discovery/playlist">歌单</NavLink>
+        <NavLink to="/discovery/djradio">主播电台</NavLink>
+        <NavLink to="/discovery/artlist">歌手</NavLink>
+        <NavLink to="/discovery/album">新碟上架</NavLink>
       </nav>
       <Outlet />
     </DiscoveryWrapper>
