@@ -35,6 +35,32 @@ const LoginDialogWrapper = styled.div`
     }
   }
   .code {
+    .expired {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        z-index: 1;
+      }
+      img {
+        filter: blur(3px);
+      }
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        color: #2d2d2d;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
     .code-title {
       font-size: 20px;
       color: #2d2d2d;
@@ -46,6 +72,16 @@ const LoginDialogWrapper = styled.div`
       span {
         color: #0c73c2;
       }
+    }
+    .loading-qrimg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.1);
+      height: 200px;
+      width: 200px;
+      color: #ccc;
+      font-size: 24px;
     }
   }
   .captcha {
@@ -98,7 +134,7 @@ const LoginDialogWrapper = styled.div`
       color: #ff3a3a;
       display: inline-flex;
       align-items: center;
-      margin-bottom: 0;
+      margin: 10px 0 0 10px ;
       div {
         height: 14px;
         width: 14px;
