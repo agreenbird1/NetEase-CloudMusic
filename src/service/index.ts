@@ -4,7 +4,11 @@ import { requestType, requestMethod } from './type'
 const service = axios.create({
   timeout: 10000,
   baseURL: 'https://netease-cloud-music-api-ochre-iota-91.vercel.app',
-  withCredentials: true
+  withCredentials: true,
+})
+
+service.interceptors.response.use((data) => {
+  return data.data
 })
 
 const request: requestType & requestMethod = (url, method, data, config) => {

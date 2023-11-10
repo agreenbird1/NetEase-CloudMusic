@@ -2,10 +2,7 @@ import type { Method, AxiosRequestConfig } from 'axios'
 
 export type ResponseData<T = any> = {
   data: T
-  extra: any
-  message: string
-  status: number
-  success: boolean
+  code: number
 }
 
 // 总方法的声明
