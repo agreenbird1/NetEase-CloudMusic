@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const DialogWrapper = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -10,6 +10,8 @@ const DialogWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 1300px;
+    z-index: 999;
 `
 
 export default DialogWrapper
