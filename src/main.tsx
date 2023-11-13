@@ -4,7 +4,11 @@ import 'normalize.css'
 import '@/assets/css/reset.css'
 
 import router from './router'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router}></RouterProvider>
+  <Provider store={store}>
+    <RouterProvider router={router}></RouterProvider>
+  </Provider>
 )
