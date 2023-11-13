@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import NavDecoration from '../NavDecoration'
 import LoginDialog from '../LoginDialog'
 import AppHeaderWrapper from './index.styled'
+import HeaderAvatar from '../HeaderAvatar'
+import { useAppSelector } from '@/store'
 
 interface IProps {
   children?: ReactNode
@@ -13,6 +15,7 @@ const Home: FC<IProps> = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [showLoginDialog, setShowLoginDialog] = useState(false)
+  const token = useAppSelector((state) => state.AuthSlice.token)
 
   useEffect(() => {
     // 防止其余地址刷新重定向
@@ -65,10 +68,18 @@ const Home: FC<IProps> = () => {
           <iconpark-icon name="search-9jg0dgeg"></iconpark-icon>
           <input type="text" placeholder="音乐/视频/电台/用户" />
         </div>
-        <div className="login" onClick={() => setShowLoginDialog(true)}>登录</div>
+        {token ? (
+          <HeaderAvatar />
+        ) : (
+          <div className="login" onClick={() => setShowLoginDialog(true)}>
+            登录
+          </div>
+        )}
       </AppHeaderWrapper>
       {!location.pathname.startsWith('/discovery') && <NavDecoration />}
-      {showLoginDialog && <LoginDialog handleClose={() => setShowLoginDialog(false)} />}
+      {showLoginDialog && (
+        <LoginDialog handleClose={() => setShowLoginDialog(false)} />
+      )}
     </>
   )
 }
