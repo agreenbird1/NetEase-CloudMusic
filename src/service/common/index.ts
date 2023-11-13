@@ -65,4 +65,7 @@ export class AuthApi {
   static loginByCaptcha(phone: string, captcha: string) {
     return request.get<ILoginResponse>('/login/cellphone', { phone, captcha })
   }
+  static logout(){
+    return request.get('/logout')
+  }
 }

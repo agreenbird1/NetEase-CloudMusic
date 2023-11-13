@@ -15,8 +15,16 @@ const AuthSlice = createSlice({
         }
       }
     },
+    clearLoginState(state) {
+      for (const key in state) {
+        if (Object.prototype.hasOwnProperty.call(state, key)) {
+          // @ts-ignore
+          state[key] = undefined
+        }
+      }
+    },
   },
 })
 
-export const { setLoginState } = AuthSlice.actions
+export const { setLoginState, clearLoginState } = AuthSlice.actions
 export default AuthSlice.reducer
