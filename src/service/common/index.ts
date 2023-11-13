@@ -1,4 +1,22 @@
 import request from '../index'
+import { BaseData } from '../type'
+
+
+export interface IUserProfile {
+    avatarUrl: string
+    backgroundUrl: string
+    nickname: string
+    description: string
+    detailDescription: string
+}
+
+export interface ILoginResponse {
+    profile: IUserProfile
+    token: string
+    cookie: string
+    loginType: number
+    account: any
+}
 
 /**
  * 包含登录注册，token相关
@@ -6,17 +24,17 @@ import request from '../index'
 export class AuthApi {
   // 二维码登录前获取二维码生成key
   static generateQRCodeKey() {
-    return request.get<{
+    return request.get<BaseData<{
       code: number
       unikey: string
-    }>('/login/qr/key')
+    }>>('/login/qr/key')
   }
   // 根据qr key生成二维码
   static generateQRCode(key: string, qrimg = true) {
-    return request.get<{
+    return request.get<BaseData<{
       qrurl: string
       qrimg: string
-    }>('/login/qr/create', {
+    }>>('/login/qr/create', {
       key,
       qrimg,
     })
@@ -43,5 +61,8 @@ export class AuthApi {
   // 验证验证码
   static verifyCode(phone: string, captcha: string) {
     return request.get('/captcha/verify', { phone, captcha })
+  }
+  static loginByCaptcha(phone: string, captcha: string) {
+    return request.get<ILoginResponse>('/login/cellphone', { phone, captcha })
   }
 }

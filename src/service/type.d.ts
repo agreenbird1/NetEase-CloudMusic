@@ -1,8 +1,11 @@
 import type { Method, AxiosRequestConfig } from 'axios'
 
-export type ResponseData<T = any> = {
-  data: T
+export type ResponseData = {
   code: number
+}
+
+export type BaseData<T> = {
+    data: T
 }
 
 // 总方法的声明
@@ -18,7 +21,7 @@ export type requestMethodType = <T = any>(
   url: string,
   data?: unknown,
   config?: AxiosRequestConfig // 配置其他
-) => Promise<ResponseData<T>>
+) => Promise<T & ResponseData>
 
 // 直接生成每一个对应的简单的方法
 export type requestMethod = {
