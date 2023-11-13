@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import backgroundImg from "@/assets/images/foot_list.png"
 
 const AppFooterWrapper = styled.footer`
   background: #f2f2f2;
@@ -28,7 +29,7 @@ const AppFooterWrapper = styled.footer`
         }
         a {
           display: block;
-          background: url('../src/assets/images/foot_list.png');
+          background: url(${backgroundImg});
           background-size: 220px 220px;
           width: 45px;
           height: 45px;
