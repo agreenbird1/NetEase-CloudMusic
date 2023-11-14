@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { AppWrapper } from './app.styled'
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
+import Player from '@/components/Player'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Outlet></Outlet>
       </AppWrapper>
       <AppFooter />
+      <Player />
     </>
   )
 }
