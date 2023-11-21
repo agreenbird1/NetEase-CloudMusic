@@ -1,16 +1,13 @@
 import styled from "styled-components"
+import commonCss from "@/assets/css/common.css"
 
 const AppHeaderWrapper = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${commonCss.center}
   height: 70px;
   background: #242424;
   min-width: 1330px;
   .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    ${commonCss.center}
     margin-right: 20px;
     cursor: pointer;
     span {
@@ -55,9 +52,7 @@ const AppHeaderWrapper = styled.header`
     background: #fff;
     color: #ccc;
     padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    ${commonCss.center}
     border-radius: 20px;
     gap: 5px;
     input {
