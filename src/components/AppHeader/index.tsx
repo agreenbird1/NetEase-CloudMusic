@@ -26,7 +26,7 @@ const Home: FC<IProps> = () => {
       <AppHeaderWrapper>
         <Link className="logo" to="/discovery">
           <img
-            src="http://p3.music.126.net/tBTNafgjNnTL1KlZMt7lVA==/18885211718935735.jpg"
+            src="https://p3.music.126.net/tBTNafgjNnTL1KlZMt7lVA==/18885211718935735.jpg"
             alt="logo"
           />
           <span>网易云音乐</span>
