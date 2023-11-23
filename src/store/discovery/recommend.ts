@@ -3,6 +3,7 @@ import type {
   IHotPlayListCat,
   IPlayListItem,
   IRecommendBanner,
+  INewAlbum,
 } from '@/service/discovery/recommend/index'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
@@ -26,10 +27,19 @@ export const getRecommendHotPlayList = createAsyncThunk(
   }
 )
 
+export const getRecommendNewAlbums = createAsyncThunk(
+  'recommend/newAlbums',
+  async () => {
+    const { albums } = await RecommendApi.getNewAlbums()
+    return albums
+  }
+)
+
 interface IRecommendState {
   banners: IRecommendBanner[]
   hotCats: IHotPlayListCat[]
   hotPlayList: IPlayListItem[]
+  newAlbums: INewAlbum[]
 }
 
 const initialState = {} as IRecommendState
@@ -46,6 +56,9 @@ const RecommendSlice = createSlice({
       .addCase(getRecommendHotPlayList.fulfilled, (state, { payload }) => {
         state.hotCats = payload.tags
         state.hotPlayList = payload.playlists
+      })
+      .addCase(getRecommendNewAlbums.fulfilled, (state, { payload }) => {
+        state.newAlbums = payload
       })
   },
 })
