@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -9,12 +9,13 @@ const persistConfig = {
   key: 'root',
   storage,
 }
+const rootReducer = combineReducers({
+  AuthSlice: persistReducer(persistConfig, AuthSlice),
+  DiscoverySlice,
+})
 
 export const store = configureStore({
-  reducer: {
-    AuthSlice: persistReducer(persistConfig, AuthSlice),
-    DiscoverySlice,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       //关闭redux序列化检测

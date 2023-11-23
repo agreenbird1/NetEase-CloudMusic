@@ -30,6 +30,7 @@ const HeaderAvatarWrapper = styled.div`
     border: 1px solid #202020;
     box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.5);
     border-radius: 4px;
+    z-index: 3;
     li {
       display: flex;
       align-items: center;

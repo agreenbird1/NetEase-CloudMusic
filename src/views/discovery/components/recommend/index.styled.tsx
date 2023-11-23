@@ -7,48 +7,48 @@ const RecommendWrapper = styled.section`
     height: 284px;
     .left-btn,
     .right-btn {
-        position: absolute;
-        top: 50%;
-        ${commonCss.center}
-        width: 37px;
-        height: 63px;
-        color: #fff;
-        font-size: 48px;
-        cursor: pointer;
-        z-index: 2;
-        &:hover {
-            background: rgba(0,0,0,.3);
-        }
+      position: absolute;
+      top: 50%;
+      ${commonCss.center}
+      width: 37px;
+      height: 63px;
+      color: #fff;
+      font-size: 48px;
+      cursor: pointer;
+      z-index: 2;
+      &:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
     }
     .left-btn {
-        transform: translate(-50%, -50%);
-        left: calc(50% - 552px);
+      transform: translate(-50%, -50%);
+      left: calc(50% - 552px);
     }
     .right-btn {
-        transform: translate(-50%, -50%);
-        left: calc(50% + 552px);
+      transform: translate(-50%, -50%);
+      left: calc(50% + 552px);
     }
     .dots {
-        position: absolute;
-        bottom: 20px;
-        left: calc(50% - 128px);
-        transform: translateX(-50%);
-        ${commonCss.center}
-        gap: 20px;
-        z-index: 2;
-        .dot {
-            background: #fff;
-            width: 8px;
-            height: 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            &:hover {
-                background: red;
-            }
-            &.active {
-                background: red;
-            }
+      position: absolute;
+      bottom: 20px;
+      left: calc(50% - 128px);
+      transform: translateX(-50%);
+      ${commonCss.center}
+      gap: 20px;
+      z-index: 2;
+      .dot {
+        background: #fff;
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          background: red;
         }
+        &.active {
+          background: red;
+        }
+      }
     }
     .banner {
       position: absolute;
@@ -70,7 +70,7 @@ const RecommendWrapper = styled.section`
         .download {
           width: 254px;
           height: 100%;
-          background: rgba(0,0,0,.3);
+          background: rgba(0, 0, 0, 0.3);
           img {
             width: 100%;
           }
@@ -80,6 +80,22 @@ const RecommendWrapper = styled.section`
     .active {
       opacity: 1;
       z-index: 1;
+    }
+  }
+  .content {
+    display: flex;
+    margin: 0 auto;
+    width: 984px;
+    border: 1px solid #d3d3d3;
+    border-width: 0 1px;
+    .hot-content {
+      width: 730px;
+      padding: 20px 20px 40px;
+    }
+    .recommend-content {
+      width: 254px;
+      height: 300px;
+      background: #d1b3b3;
     }
   }
 `

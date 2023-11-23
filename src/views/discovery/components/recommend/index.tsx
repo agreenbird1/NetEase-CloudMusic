@@ -11,6 +11,8 @@ import {
 import RecommendWrapper from './index.styled'
 import classnames from 'classnames'
 import downloadImg from '@/assets/images/recommend-download.png'
+import HotPlayList from './components/HotPlayList'
+import HotAlbum from './components/HotAlbum'
 
 interface IProps {
   children?: ReactNode
@@ -94,6 +96,13 @@ const Recommend: FC<IProps> = () => {
             </li>
           ))}
       </ul>
+      <section className="content">
+        <div className="hot-content">
+          <HotPlayList />
+          <HotAlbum />
+        </div>
+        <div className="recommend-content"></div>
+      </section>
     </RecommendWrapper>
   )
 }
