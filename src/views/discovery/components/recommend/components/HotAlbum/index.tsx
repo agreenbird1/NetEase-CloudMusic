@@ -1,4 +1,4 @@
-import { type FC, type ReactNode, memo, useEffect } from 'react'
+import { type FC, type ReactNode, memo, useEffect, useState } from 'react'
 import HotAlbumWrapper from './index.styled'
 import SectionHeader from '../SectionHeader'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -17,15 +17,27 @@ const HotAlbum: FC<IProps> = () => {
   useEffect(() => {
     dispatch(getRecommendNewAlbums())
   }, [dispatch])
+
+  const [moveX, setMoveX] = useState(0)
+  const changeMoveX = () => {
+    setMoveX(moveX ? 0 : -645)
+  }
   return (
     <HotAlbumWrapper>
       <SectionHeader title="新碟上架" more="/discovery/album" />
       {newAlbums && (
         <div className="list-wrapper">
+          <span className="left-button" onClick={() => changeMoveX()}></span>
+          <span className="right-button" onClick={() => changeMoveX()}></span>
           <div className="move-wrapper">
-            {newAlbums.map((album) => (
-              <AlbumCover key={album.id} album={album} />
-            ))}
+            <div
+              className="move-content"
+              style={{ transform: `translateX(${moveX}px)` }}
+            >
+              {newAlbums.map((album) => (
+                <AlbumCover key={album.id} album={album} />
+              ))}
+            </div>
           </div>
         </div>
       )}
