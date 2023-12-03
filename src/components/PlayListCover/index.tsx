@@ -1,6 +1,6 @@
 import { type FC, type ReactNode, memo } from 'react'
 import PlayListCoverWrapper from './index.styled'
-import { IPlayListItem } from '@/service/discovery/recommend'
+import { IPlayListItem } from '@/service/discovery/playlist'
 import { useNavigate } from 'react-router-dom'
 
 interface IProps {

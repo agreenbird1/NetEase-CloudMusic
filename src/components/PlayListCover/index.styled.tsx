@@ -65,7 +65,11 @@ const PlayListCoverWrapper = styled.div`
       cursor: pointer;
     }
     .creator {
+      width: 140px;
       font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .creator span,
     .desc {
