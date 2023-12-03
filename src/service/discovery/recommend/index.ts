@@ -22,118 +22,6 @@ export interface IHotPlayListCat {
   name: string
 }
 
-export interface IPlayListItem {
-  name: string
-  id: number
-  trackNumberUpdateTime: number
-  status: number
-  userId: number
-  createTime: number
-  updateTime: number
-  subscribedCount: number
-  trackCount: number
-  cloudTrackCount: number
-  coverImgUrl: string
-  iconImgUrl?: any
-  coverImgId: number
-  description: string
-  tags: string[]
-  playCount: number
-  trackUpdateTime: number
-  specialType: number
-  totalDuration: number
-  creator: Creator
-  tracks?: any
-  subscribers: Subscriber[]
-  subscribed: boolean
-  commentThreadId: string
-  newImported: boolean
-  adType: number
-  highQuality: boolean
-  privacy: number
-  ordered: boolean
-  anonimous: boolean
-  coverStatus: number
-  recommendInfo?: any
-  socialPlaylistCover?: any
-  recommendText?: any
-  coverText?: any
-  relateResType?: any
-  relateResId?: any
-  shareCount: number
-  alg: string
-  commentCount: number
-}
-export interface Subscriber {
-  defaultAvatar: boolean
-  province: number
-  authStatus: number
-  followed: boolean
-  avatarUrl: string
-  accountStatus: number
-  gender: number
-  city: number
-  birthday: number
-  userId: number
-  userType: number
-  nickname: string
-  signature: string
-  description: string
-  detailDescription: string
-  avatarImgId: number
-  backgroundImgId: number
-  backgroundUrl: string
-  authority: number
-  mutual: boolean
-  expertTags?: any
-  experts?: any
-  djStatus: number
-  vipType: number
-  remarkName?: any
-  authenticationTypes: number
-  avatarDetail?: any
-  avatarImgIdStr: string
-  backgroundImgIdStr: string
-  anchor: boolean
-}
-export interface Creator {
-  defaultAvatar: boolean
-  province: number
-  authStatus: number
-  followed: boolean
-  avatarUrl: string
-  accountStatus: number
-  gender: number
-  city: number
-  birthday: number
-  userId: number
-  userType: number
-  nickname: string
-  signature: string
-  description: string
-  detailDescription: string
-  avatarImgId: number
-  backgroundImgId: number
-  backgroundUrl: string
-  authority: number
-  mutual: boolean
-  expertTags: string[]
-  experts?: any
-  djStatus: number
-  vipType: number
-  remarkName?: any
-  authenticationTypes: number
-  avatarDetail: AvatarDetail
-  avatarImgIdStr: string
-  backgroundImgIdStr: string
-  anchor: boolean
-}
-export interface AvatarDetail {
-  userType: number
-  identityLevel: number
-  identityIconUrl: string
-}
-
 export interface INewAlbum {
   songs: any[]
   paid: boolean
@@ -204,12 +92,6 @@ export class RecommendApi {
     }>('/banner')
   }
 
-  // 发现 推荐页热门歌单
-  static getHotPlayList() {
-    return request.get<{
-      playlists: IPlayListItem[]
-    }>('/top/playlist?limit=10&order=hot')
-  }
   // 发现 推荐页热门歌单 分类
   static getHotPlayListCat() {
     return request.get<{

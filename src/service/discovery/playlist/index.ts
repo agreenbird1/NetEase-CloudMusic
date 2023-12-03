@@ -1,0 +1,140 @@
+import request from '../../'
+
+export interface IPlayListItem {
+  name: string
+  id: number
+  trackNumberUpdateTime: number
+  status: number
+  userId: number
+  createTime: number
+  updateTime: number
+  subscribedCount: number
+  trackCount: number
+  cloudTrackCount: number
+  coverImgUrl: string
+  iconImgUrl?: any
+  coverImgId: number
+  description: string
+  tags: string[]
+  playCount: number
+  trackUpdateTime: number
+  specialType: number
+  totalDuration: number
+  creator: Creator
+  tracks?: any
+  subscribers: Subscriber[]
+  subscribed: boolean
+  commentThreadId: string
+  newImported: boolean
+  adType: number
+  highQuality: boolean
+  privacy: number
+  ordered: boolean
+  anonimous: boolean
+  coverStatus: number
+  recommendInfo?: any
+  socialPlaylistCover?: any
+  recommendText?: any
+  coverText?: any
+  relateResType?: any
+  relateResId?: any
+  shareCount: number
+  alg: string
+  commentCount: number
+}
+export interface Subscriber {
+  defaultAvatar: boolean
+  province: number
+  authStatus: number
+  followed: boolean
+  avatarUrl: string
+  accountStatus: number
+  gender: number
+  city: number
+  birthday: number
+  userId: number
+  userType: number
+  nickname: string
+  signature: string
+  description: string
+  detailDescription: string
+  avatarImgId: number
+  backgroundImgId: number
+  backgroundUrl: string
+  authority: number
+  mutual: boolean
+  expertTags?: any
+  experts?: any
+  djStatus: number
+  vipType: number
+  remarkName?: any
+  authenticationTypes: number
+  avatarDetail?: AvatarDetail
+  avatarImgIdStr: string
+  backgroundImgIdStr: string
+  anchor: boolean
+}
+export interface Creator {
+  defaultAvatar: boolean
+  province: number
+  authStatus: number
+  followed: boolean
+  avatarUrl: string
+  accountStatus: number
+  gender: number
+  city: number
+  birthday: number
+  userId: number
+  userType: number
+  nickname: string
+  signature: string
+  description: string
+  detailDescription: string
+  avatarImgId: number
+  backgroundImgId: number
+  backgroundUrl: string
+  authority: number
+  mutual: boolean
+  expertTags: string[]
+  experts?: any
+  djStatus: number
+  vipType: number
+  remarkName?: any
+  authenticationTypes: number
+  avatarDetail: AvatarDetail
+  avatarImgIdStr: string
+  backgroundImgIdStr: string
+  anchor: boolean
+}
+export interface AvatarDetail {
+  userType: number
+  identityLevel: number
+  identityIconUrl: string
+}
+export interface ICatDetail {
+  name: string
+  category: string
+}
+
+export class PlayListApi {
+  // 歌单分类
+  static getPlayListCats() {
+    return request.get<{
+      categories: Record<string, string>
+      sub: ICatDetail[]
+    }>('/playlist/catlist')
+  }
+  // 获取歌单
+  static getPlayLists(params: {
+    limit: number
+    offset: number
+    cat?: string
+    order?: 'new' | 'hot'
+  }) {
+    return request.get<{
+      playlists: IPlayListItem[]
+      total: number
+      more: boolean
+    }>('/top/playlist', params)
+  }
+}
