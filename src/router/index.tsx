@@ -6,6 +6,7 @@ import Friend from '@/views/friend/index'
 import Download from '@/views/download/index'
 import Recommend from './../views/discovery/components/recommend/index'
 import TopList from './../views/discovery/components/toplist/index'
+import PlayList from './../views/discovery/components/playlist/index'
 import Discovery from '@/views/discovery/index'
 import ArtList from './../views/discovery/components/artlist/index'
 import DjRadio from './../views/discovery/components/djradio/index'
@@ -32,7 +33,7 @@ const router = createHashRouter([
           },
           {
             path: '/discovery/playlist',
-            element: <TopList />,
+            element: <PlayList />,
           },
           {
             path: '/discovery/djradio',
