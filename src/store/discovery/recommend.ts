@@ -1,7 +1,8 @@
+import { PlayListApi } from './../../service/discovery/playlist/index'
 import { RecommendApi } from '@/service/discovery/recommend/index'
+import type { IPlayListItem } from './../../service/discovery/playlist/index'
 import type {
   IHotPlayListCat,
-  IPlayListItem,
   IRecommendBanner,
   INewAlbum,
 } from '@/service/discovery/recommend/index'
@@ -19,7 +20,11 @@ export const getRecommendHotPlayList = createAsyncThunk(
   'recommend/hotPlayList',
   async () => {
     const { tags } = await RecommendApi.getHotPlayListCat()
-    const { playlists } = await RecommendApi.getHotPlayList()
+    const { playlists } = await PlayListApi.getPlayLists({
+      limit: 10,
+      offset: 0,
+      order: 'hot',
+    })
     return {
       tags,
       playlists,
