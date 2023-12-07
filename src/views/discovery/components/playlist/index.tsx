@@ -44,6 +44,10 @@ const Playlist: FC<IProps> = () => {
     )
   }, [dispatch])
 
+  const changePage = (currentPage: number) => {
+    console.log(currentPage)
+  }
+
   return (
     <PlayListWrapper>
       <div className="title">
@@ -78,7 +82,7 @@ const Playlist: FC<IProps> = () => {
         {playlists &&
           playlists.map((p) => <PlayListCover key={p.name} playListItem={p} />)}
       </ul>
-      <Carousel total={total} pageCount={30} />
+      <Carousel total={total} pageCount={30} changePage={changePage} />
     </PlayListWrapper>
   )
 }
