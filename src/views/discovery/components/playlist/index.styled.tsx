@@ -123,6 +123,11 @@ const PlayListWrapper = styled.div`
       }
     }
   }
+  .empty {
+    color: #666;
+    font-size: 28px;
+    text-align: center;
+  }
 `
 
 export default PlayListWrapper

@@ -6,6 +6,7 @@ interface IProps {
   children?: ReactNode
   total: number
   pageCount: number
+  currentPage: number
   changePage: (currentPage: number) => void
 }
 
@@ -14,9 +15,13 @@ interface Item {
   page?: number
 }
 
-const Carousel: FC<IProps> = ({ total, pageCount }) => {
+const Carousel: FC<IProps> = ({
+  total,
+  pageCount,
+  changePage,
+  currentPage,
+}) => {
   const totalPage = Math.ceil(total / pageCount)
-  const [currentPage, setCurrentPage] = useState(1)
   const [renderList, setRenderList] = useState<Item[]>([])
 
   // 根据总共显示的页数来计算
@@ -90,9 +95,11 @@ const Carousel: FC<IProps> = ({ total, pageCount }) => {
     }
   }, [currentPage, totalPage])
 
-  const changeCurrentPage = (number: 1 | -1) => {
-    const newPage = currentPage + number
-    if (newPage >= 1 && newPage <= totalPage) setCurrentPage(newPage)
+  const changeCurrentPage = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPage) {
+      // 手动更新时候才向上更新
+      changePage && changePage(newPage)
+    }
   }
 
   return (
@@ -101,7 +108,7 @@ const Carousel: FC<IProps> = ({ total, pageCount }) => {
         <>
           <span
             className={classNames('button', { disabled: currentPage === 1 })}
-            onClick={() => changeCurrentPage(-1)}
+            onClick={() => changeCurrentPage(currentPage - 1)}
           >
             <iconpark-icon name="ChevronLeft"></iconpark-icon>
             上一页
@@ -115,7 +122,7 @@ const Carousel: FC<IProps> = ({ total, pageCount }) => {
                   className={classNames('item', {
                     active: _.page === currentPage,
                   })}
-                  onClick={() => setCurrentPage(_.page!)}
+                  onClick={() => changeCurrentPage(_.page!)}
                   key={i}
                 >
                   {_.page}
@@ -127,7 +134,7 @@ const Carousel: FC<IProps> = ({ total, pageCount }) => {
             className={classNames('button', {
               disabled: currentPage === totalPage,
             })}
-            onClick={() => changeCurrentPage(1)}
+            onClick={() => changeCurrentPage(currentPage + 1)}
           >
             下一页<iconpark-icon name="ChevronRight"></iconpark-icon>
           </span>
