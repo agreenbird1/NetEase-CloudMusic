@@ -40,11 +40,21 @@ export const getRecommendNewAlbums = createAsyncThunk(
   }
 )
 
+export const getRankLists = createAsyncThunk('recommend/ranklists', async () => {
+  const res = await Promise.all([
+    PlayListApi.getPlayListDetail(19723756),
+    PlayListApi.getPlayListDetail(3779629),
+    PlayListApi.getPlayListDetail(2884035),
+  ])
+  return res.map((item) => item.playlist)
+})
+
 interface IRecommendState {
   banners: IRecommendBanner[]
   hotCats: IHotPlayListCat[]
   hotPlayList: IPlayListItem[]
   newAlbums: INewAlbum[]
+  rankList: IPlayListItem[]
 }
 
 const initialState = {} as IRecommendState
@@ -64,6 +74,10 @@ const RecommendSlice = createSlice({
       })
       .addCase(getRecommendNewAlbums.fulfilled, (state, { payload }) => {
         state.newAlbums = payload
+      })
+      .addCase(getRankLists.fulfilled, (state, { payload }) => {
+        console.log(payload)
+        state.rankList = payload
       })
   },
 })

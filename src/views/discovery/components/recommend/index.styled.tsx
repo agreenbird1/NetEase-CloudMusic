@@ -92,11 +92,6 @@ const RecommendWrapper = styled.section`
       width: 730px;
       padding: 20px 20px 40px;
     }
-    .recommend-content {
-      width: 254px;
-      height: 300px;
-      background: #d1b3b3;
-    }
   }
 `
 

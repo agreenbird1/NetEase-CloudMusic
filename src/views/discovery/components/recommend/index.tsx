@@ -13,6 +13,7 @@ import classnames from 'classnames'
 import downloadImg from '@/assets/images/recommend-download.png'
 import HotPlayList from './components/HotPlayList'
 import HotAlbum from './components/HotAlbum'
+import HotRankList from './components/HotRankList'
 
 interface IProps {
   children?: ReactNode
@@ -100,8 +101,8 @@ const Recommend: FC<IProps> = () => {
         <div className="hot-content">
           <HotPlayList />
           <HotAlbum />
+          <HotRankList />
         </div>
-        <div className="recommend-content"></div>
       </section>
     </RecommendWrapper>
   )

@@ -14,6 +14,12 @@ const commonCss = {
     display: flex;
     justify-content: center;
   `,
+  hoverActive: css`
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  `,
 }
 
 export default commonCss
