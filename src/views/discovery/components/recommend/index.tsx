@@ -14,6 +14,7 @@ import downloadImg from '@/assets/images/recommend-download.png'
 import HotPlayList from './components/HotPlayList'
 import HotAlbum from './components/HotAlbum'
 import HotRankList from './components/HotRankList'
+import HotArtist from './components/HotArtist'
 
 interface IProps {
   children?: ReactNode
@@ -103,6 +104,7 @@ const Recommend: FC<IProps> = () => {
           <HotAlbum />
           <HotRankList />
         </div>
+        <HotArtist />
       </section>
     </RecommendWrapper>
   )

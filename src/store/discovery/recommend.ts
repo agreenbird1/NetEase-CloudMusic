@@ -1,5 +1,7 @@
+import { IArtist } from './../../service/discovery/artist/index';
 import { PlayListApi } from './../../service/discovery/playlist/index'
 import { RecommendApi } from '@/service/discovery/recommend/index'
+import { ArtistApi } from '@/service/discovery/artist/index'
 import type { IPlayListItem } from './../../service/discovery/playlist/index'
 import type {
   IHotPlayListCat,
@@ -40,13 +42,24 @@ export const getRecommendNewAlbums = createAsyncThunk(
   }
 )
 
-export const getRankLists = createAsyncThunk('recommend/ranklists', async () => {
-  const res = await Promise.all([
-    PlayListApi.getPlayListDetail(19723756),
-    PlayListApi.getPlayListDetail(3779629),
-    PlayListApi.getPlayListDetail(2884035),
-  ])
-  return res.map((item) => item.playlist)
+export const getRankLists = createAsyncThunk(
+  'recommend/ranklists',
+  async () => {
+    const res = await Promise.all([
+      PlayListApi.getPlayListDetail(19723756),
+      PlayListApi.getPlayListDetail(3779629),
+      PlayListApi.getPlayListDetail(2884035),
+    ])
+    return res.map((item) => item.playlist)
+  }
+)
+
+export const getHotArtist = createAsyncThunk('', async () => {
+  const { artists } = await ArtistApi.getArtists({
+    limit: 5,
+    offset: 0,
+  })
+  return artists
 })
 
 interface IRecommendState {
@@ -55,6 +68,7 @@ interface IRecommendState {
   hotPlayList: IPlayListItem[]
   newAlbums: INewAlbum[]
   rankList: IPlayListItem[]
+  hotArtist: IArtist[]
 }
 
 const initialState = {} as IRecommendState
@@ -76,8 +90,10 @@ const RecommendSlice = createSlice({
         state.newAlbums = payload
       })
       .addCase(getRankLists.fulfilled, (state, { payload }) => {
-        console.log(payload)
         state.rankList = payload
+      })
+      .addCase(getHotArtist.fulfilled, (state, { payload }) => {
+        state.hotArtist = payload
       })
   },
 })
