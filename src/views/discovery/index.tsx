@@ -22,7 +22,7 @@ const Discovery: FC<IProps> = () => {
         <NavLink to="/discovery/toplist">排行榜</NavLink>
         <NavLink to="/discovery/playlist">歌单</NavLink>
         <NavLink to="/discovery/djradio">主播电台</NavLink>
-        <NavLink to="/discovery/artlist">歌手</NavLink>
+        <NavLink to="/discovery/artist">歌手</NavLink>
         <NavLink to="/discovery/album">新碟上架</NavLink>
       </nav>
       <Outlet />

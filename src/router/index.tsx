@@ -8,7 +8,7 @@ import Recommend from './../views/discovery/components/recommend/index'
 import TopList from './../views/discovery/components/toplist/index'
 import PlayList from './../views/discovery/components/playlist/index'
 import Discovery from '@/views/discovery/index'
-import ArtList from './../views/discovery/components/artlist/index'
+import Artist from './../views/discovery/components/artist/index'
 import DjRadio from './../views/discovery/components/djradio/index'
 import Album from './../views/discovery/components/album/index'
 import ErrorPage from '@/views/error/index'
@@ -40,8 +40,8 @@ const router = createHashRouter([
             element: <DjRadio />,
           },
           {
-            path: '/discovery/artlist',
-            element: <ArtList />,
+            path: '/discovery/artist',
+            element: <Artist />,
           },
           {
             path: '/discovery/album',

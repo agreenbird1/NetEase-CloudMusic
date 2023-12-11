@@ -4,8 +4,8 @@ interface IProps {
   children?: ReactNode
 }
 
-const ArtList: FC<IProps> = () => {
-  return <div>artlist</div>
+const Artist: FC<IProps> = () => {
+  return <div>Artist</div>
 }
 
-export default ArtList
+export default Artist
