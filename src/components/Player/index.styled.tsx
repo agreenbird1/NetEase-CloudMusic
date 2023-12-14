@@ -62,6 +62,12 @@ const PlayerWrapper = styled.div`
             background-position: -40px -204px;
           }
         }
+        .playing {
+          background-position: 0 -165px !important;
+          &:hover {
+            background-position: -40px -165px !important;
+          }
+        }
       }
     }
 
@@ -114,7 +120,6 @@ const PlayerWrapper = styled.div`
             .ready-bar {
               position: absolute;
               height: 9px;
-              width: 300px;
               border-radius: 5px;
               background: #535353;
             }
@@ -122,7 +127,6 @@ const PlayerWrapper = styled.div`
               position: relative;
               height: 9px;
               background: #c70b0d;
-              width: 210px;
               border-radius: 5px;
               .cur-btn {
                 position: absolute;

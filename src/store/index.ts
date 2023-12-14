@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import AuthSlice from './auth'
 import DiscoverySlice from './discovery'
+import CommonInfoSlice from './common-info'
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +13,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   AuthSlice: persistReducer(persistConfig, AuthSlice),
   DiscoverySlice,
+  CommonInfoSlice: persistReducer(persistConfig, CommonInfoSlice),
 })
 
 export const store = configureStore({

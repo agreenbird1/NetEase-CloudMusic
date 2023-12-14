@@ -69,3 +69,11 @@ export class AuthApi {
     return request.get('/logout')
   }
 }
+
+
+export class SongApi {
+
+  static getSongDetail(ids: string) {
+    return request.get('/song/detail', { ids })
+  }
+}

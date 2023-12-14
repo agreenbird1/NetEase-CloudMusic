@@ -1,21 +1,55 @@
-import { useState, type FC, type ReactNode, useEffect } from 'react'
+import { useState, type FC, type ReactNode, useEffect, useRef } from 'react'
 import PlayerWrapper from './index.styled'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import storage from '@/utils/storage'
+import { useAppSelector } from '@/store'
+import dayjs from 'dayjs'
 
 interface IProps {
   children?: ReactNode
 }
 
 const Player: FC<IProps> = () => {
+  const { currentSong } = useAppSelector((state) => state.CommonInfoSlice)
   const localLocked = storage.getStorage<boolean>('player_locked')
   const [locked, setLocked] = useState(Boolean(localLocked))
+  const [progress, setProgress] = useState(0)
+  const [preloadTime, setPreloadTime] = useState(0)
+  const [playing, setPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   // 存储到本地
   useEffect(() => {
     storage.setStorage('player_locked', locked)
   }, [locked])
+
+  const mmFormat = (time: number) => {
+    return dayjs(time).format('mm:ss')
+  }
+
+  const changePlaying = () => {
+    setPlaying(!playing)
+    if (playing) {
+      audioRef.current?.pause()
+    } else {
+      audioRef.current?.play()
+    }
+  }
+
+  const playEnded = () => {
+    setPlaying(false)
+    setProgress(0)
+  }
+
+  const clickBar: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    if (!(e.target as HTMLSpanElement).classList.contains('cur-btn')) {
+      const rect = document.querySelector('.bar-bg')!.getBoundingClientRect()!
+      const offsetX = e.clientX - rect.left
+      audioRef.current!.currentTime =
+        (offsetX / rect.width) * audioRef.current!.duration
+    }
+  }
 
   return (
     <PlayerWrapper>
@@ -37,35 +71,59 @@ const Player: FC<IProps> = () => {
         <div className="player-bar">
           <div className="play-btns">
             <span className="play-btn"></span>
-            <span className="play-btn"></span>
+            <span
+              className={classNames('play-btn', { playing })}
+              onClick={() => changePlaying()}
+            ></span>
             <span className="play-btn"></span>
           </div>
           <div className="music">
             <Link to="/song">
-              <img
-                src="https://p2.music.126.net/aJWtwvdYRXvKUpAE2C6NoA==/109951168919708423.jpg?param=34y34"
-                alt="song"
-              />
+              <img src={currentSong.al.picUrl} alt="song" />
             </Link>
           </div>
           <div className="play">
             <div className="play-info">
-              <span className="song-name">你不是真正的快乐</span>
-              <span className="player-name">邓紫棋</span>
+              <span className="song-name">{currentSong.name}</span>
+              <span className="player-name">
+                {currentSong.ar.map((artist) => artist.name).join(',')}
+              </span>
             </div>
             <div className="play-progress">
               <div className="progress-bar">
-                <div className="bar-bg">
+                <div className="bar-bg" onClick={clickBar}>
                   {/* 歌曲预加载进度 */}
-                  <div className="ready-bar"></div>
+                  <div
+                    className="ready-bar"
+                    style={{
+                      width: `${(preloadTime / currentSong.dt) * 100}%`,
+                    }}
+                  ></div>
                   {/* 实际播放进度 */}
-                  <div className="cur-bar">
+                  <div
+                    className="cur-bar"
+                    style={{
+                      width: `${(progress / currentSong.dt) * 100}%`,
+                    }}
+                  >
                     <span className="cur-btn"></span>
                   </div>
+                  <audio
+                    ref={audioRef}
+                    src={`https://music.163.com/song/media/outer/url?id=${currentSong.id}.mp3 `}
+                    onProgress={() =>
+                      setPreloadTime(audioRef.current!.buffered.end(0) * 1000)
+                    }
+                    onLoad={() => setPreloadTime(currentSong.dt)}
+                    onTimeUpdate={() =>
+                      setProgress(audioRef.current!.currentTime * 1000)
+                    }
+                    onEnded={() => playEnded()}
+                  ></audio>
                 </div>
               </div>
               <div className="time">
-                <span>00:45</span>/ 04:17
+                <span>{mmFormat(progress)}</span>/ {mmFormat(currentSong.dt)}
               </div>
             </div>
           </div>
