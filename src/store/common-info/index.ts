@@ -1,6 +1,11 @@
+import { Track } from '@/service/discovery/playlist'
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+export interface IInitialState {
+  currentSong: Track
+}
+
+const initialState: IInitialState = {
   currentSong: {
     name: '情非得已 (童声版)',
     id: 33894312,
@@ -17,7 +22,7 @@ const initialState = {
     alia: [],
     pop: 75,
     st: 0,
-    rt: null,
+    rt: '',
     fee: 0,
     v: 717,
     crbt: null,

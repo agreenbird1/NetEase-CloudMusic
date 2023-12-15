@@ -4,6 +4,7 @@ import SectionHeader from '../SectionHeader'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { getRankLists } from '@/store/discovery/recommend'
 import { useNavigate } from 'react-router-dom'
+import { setCurrentSong } from '@/store/common-info'
 
 interface IProps {
   children?: ReactNode
@@ -57,7 +58,7 @@ const HotRankList: FC<IProps> = () => {
                       {track.name}
                     </span>
                     <div className="opener">
-                      <span></span>
+                      <span onClick={() => dispatch(setCurrentSong(track))}></span>
                       <span></span>
                       <span></span>
                     </div>

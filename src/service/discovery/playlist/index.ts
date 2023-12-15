@@ -122,7 +122,7 @@ export interface Track {
     id: number
     pst: number
     t: number
-    ar: Ar[]
+    ar: any[]
     alia: any[]
     pop: number
     st: number
@@ -131,13 +131,13 @@ export interface Track {
     v: number
     crbt: any
     cf: string
-    al: Al
+    al: any
     dt: number
-    h: H
-    m: M
-    l: L
-    sq: Sq
-    hr: Hr
+    h: any
+    m: any
+    l: any
+    sq: any
+    hr: any
     a: any
     cd: string
     no: number
@@ -165,63 +165,6 @@ export interface Track {
     mv: number
     publishTime: number
   }
-
-  export interface Ar {
-    id: number
-    name: string
-    tns: any[]
-    alias: any[]
-  }
-
-  export interface Al {
-    id: number
-    name: string
-    picUrl: string
-    tns: any[]
-    pic_str: string
-    pic: number
-  }
-
-  export interface H {
-    br: number
-    fid: number
-    size: number
-    vd: number
-    sr: number
-  }
-
-  export interface M {
-    br: number
-    fid: number
-    size: number
-    vd: number
-    sr: number
-  }
-
-  export interface L {
-    br: number
-    fid: number
-    size: number
-    vd: number
-    sr: number
-  }
-
-  export interface Sq {
-    br: number
-    fid: number
-    size: number
-    vd: number
-    sr: number
-  }
-
-  export interface Hr {
-    br: number
-    fid: number
-    size: number
-    vd: number
-    sr: number
-  }
-
 
 export class PlayListApi {
   // 歌单分类
