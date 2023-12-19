@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import AuthSlice from './auth'
 import DiscoverySlice from './discovery'
 import CommonInfoSlice from './common-info'
+import { setLyric } from './middleware/set-lyric'
 
 const persistConfig = {
   key: 'root',
@@ -22,7 +23,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       //关闭redux序列化检测
       serializableCheck: false,
-    }),
+    }).concat(setLyric),
 })
 
 export const persistor = persistStore(store)

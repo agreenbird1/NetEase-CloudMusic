@@ -1,21 +1,20 @@
 import request from '../index'
 import { BaseData } from '../type'
 
-
 export interface IUserProfile {
-    avatarUrl: string
-    backgroundUrl: string
-    nickname: string
-    description: string
-    detailDescription: string
+  avatarUrl: string
+  backgroundUrl: string
+  nickname: string
+  description: string
+  detailDescription: string
 }
 
 export interface ILoginResponse {
-    profile: IUserProfile
-    token: string
-    cookie: string
-    loginType: number
-    account: any
+  profile: IUserProfile
+  token: string
+  cookie: string
+  loginType: number
+  account: any
 }
 
 /**
@@ -24,17 +23,21 @@ export interface ILoginResponse {
 export class AuthApi {
   // 二维码登录前获取二维码生成key
   static generateQRCodeKey() {
-    return request.get<BaseData<{
-      code: number
-      unikey: string
-    }>>('/login/qr/key')
+    return request.get<
+      BaseData<{
+        code: number
+        unikey: string
+      }>
+    >('/login/qr/key')
   }
   // 根据qr key生成二维码
   static generateQRCode(key: string, qrimg = true) {
-    return request.get<BaseData<{
-      qrurl: string
-      qrimg: string
-    }>>('/login/qr/create', {
+    return request.get<
+      BaseData<{
+        qrurl: string
+        qrimg: string
+      }>
+    >('/login/qr/create', {
       key,
       qrimg,
     })
@@ -65,15 +68,17 @@ export class AuthApi {
   static loginByCaptcha(phone: string, captcha: string) {
     return request.get<ILoginResponse>('/login/cellphone', { phone, captcha })
   }
-  static logout(){
+  static logout() {
     return request.get('/logout')
   }
 }
 
-
 export class SongApi {
-
   static getSongDetail(ids: string) {
     return request.get('/song/detail', { ids })
+  }
+
+  static getSongLyric(id: string) {
+    return request.get('/lyric', { id })
   }
 }
