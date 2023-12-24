@@ -1,19 +1,20 @@
 import { SongApi } from '@/service/common'
 import { Track } from '@/service/discovery/playlist'
+import parseLyric, { ILyricItem } from '@/utils/parse-lyric'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface IInitialState {
   currentSong: Track
   lyric: {
-    lrc: string
-    tlyric: string
+    lrc: ILyricItem[]
+    tlyric: ILyricItem[]
   }
 }
 
 export const getSongLyricThunk = createAsyncThunk('common/lyric', (id: string, { dispatch }) => {
   SongApi.getSongLyric(id).then((res) => {
     const { tlyric, lrc } = res
-    dispatch(setCurrentLyric({ tlyric: tlyric.lyric, lrc: lrc.lyric }))
+    dispatch(setCurrentLyric({ tlyric: parseLyric(tlyric.lyric), lrc: parseLyric(lrc.lyric) }))
   })
 })
 
@@ -31,8 +32,8 @@ const initialState = {
     dt: 0,
   },
   lyric: {
-    lrc: '',
-    tlyric: '',
+    lrc: [] as any,
+    tlyric: [] as any,
   },
 } as IInitialState
 
