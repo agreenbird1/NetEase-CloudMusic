@@ -13,7 +13,10 @@ interface IProps {
 const Player: FC<IProps> = () => {
   let preX = 0 // 鼠标移动播放进度
   const barWidth = 466
-  const { currentSong } = useAppSelector((state) => state.CommonInfoSlice)
+  const {
+    currentSong,
+    lyric: { lrc },
+  } = useAppSelector((state) => state.CommonInfoSlice)
   const localLocked = storage.getStorage<boolean>('player_locked')
   const [locked, setLocked] = useState(Boolean(localLocked))
   const [progress, setProgress] = useState(0)
@@ -21,7 +24,16 @@ const Player: FC<IProps> = () => {
   const [playing, setPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
-  const [showPlayList, setShowPlayList] = useState(false)
+  const [showPlayList, setShowPlayList] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const lyricRef = useRef<HTMLDivElement>(null)
+  const wheelRef = useRef<{
+    wheeling: boolean
+    timer: NodeJS.Timeout
+  }>({
+    wheeling: false,
+    timer: undefined as unknown as NodeJS.Timeout,
+  })
 
   // 存储到本地
   useEffect(() => {
@@ -45,6 +57,41 @@ const Player: FC<IProps> = () => {
   const playEnded = () => {
     setPlaying(false)
     setProgress(0)
+  }
+
+  const timeUpdate = () => {
+    const newTime = audioRef.current!.currentTime * 1000
+    setProgress(newTime)
+    const preIndex = currentIndex
+    let newIndex = lrc.length - 1
+    lrc.findIndex((item, index) => {
+      if (item.time >= newTime) {
+        newIndex = index - 1
+        return true
+      }
+    })
+    if (preIndex !== newIndex) {
+      setCurrentIndex(newIndex)
+      if (!wheelRef.current.wheeling) {
+        const { offsetTop, offsetHeight } = (lyricRef.current!.children[0].children[newIndex] as HTMLDivElement) || {}
+        const top = 110
+        if (offsetTop + offsetHeight / 2 > top) {
+          lyricRef.current!.scrollTo({
+            top: offsetTop - top - offsetHeight,
+            behavior: 'smooth',
+          })
+        }
+      }
+    }
+  }
+
+  // 当使用鼠标滚轮歌词时候，歌词不随播放滚动
+  const lyricWheel = () => {
+    wheelRef.current.wheeling = true
+    clearTimeout(wheelRef.current.timer)
+    wheelRef.current.timer = setTimeout(() => {
+      wheelRef.current.wheeling = false
+    }, 3000)
   }
 
   const clickBar: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -114,6 +161,16 @@ const Player: FC<IProps> = () => {
                   <iconpark-icon className="icon" name="close-1"></iconpark-icon>
                 </span>
               </div>
+              <div className="lyrics-content-wrapper" ref={lyricRef} onWheel={() => lyricWheel()}>
+                <div className="lyrics">
+                  {lrc?.length &&
+                    lrc.map((lrcItem, index) => (
+                      <div key={lrcItem.time} className={classNames('lyric', { active: index === currentIndex })}>
+                        {lrcItem.content}
+                      </div>
+                    ))}
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -157,7 +214,7 @@ const Player: FC<IProps> = () => {
                     src={`https://music.163.com/song/media/outer/url?id=${currentSong.id}.mp3 `}
                     onProgress={() => setPreloadTime(audioRef.current!.buffered.end(0) * 1000)}
                     onLoad={() => setPreloadTime(currentSong.dt)}
-                    onTimeUpdate={() => setProgress(audioRef.current!.currentTime * 1000)}
+                    onTimeUpdate={() => timeUpdate()}
                     onEnded={() => playEnded()}
                   ></audio>
                 </div>

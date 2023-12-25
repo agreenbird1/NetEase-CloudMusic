@@ -108,6 +108,7 @@ const PlayerWrapper = styled.div`
       }
       .lyrics-wrapper {
         width: 420px;
+        background: #272827;
         .title {
           ${commonCss.center}
           span {
@@ -125,6 +126,26 @@ const PlayerWrapper = styled.div`
           }
           .close {
             cursor: pointer;
+          }
+        }
+        .lyrics-content-wrapper {
+          overflow-y: scroll;
+          margin: 20px 0;
+          .lyrics {
+            height: 220px;
+            width: 354px;
+            margin: 0 auto;
+            .lyric {
+              color: #989898;
+              text-align: center;
+              font-size: 12px;
+              min-height: 32px;
+              line-height: 32px;
+            }
+            .active {
+              font-size: 14px;
+              color: #fff;
+            }
           }
         }
       }
