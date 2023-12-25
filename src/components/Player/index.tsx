@@ -21,6 +21,8 @@ const Player: FC<IProps> = () => {
   const [playing, setPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
+  const [showPlayList, setShowPlayList] = useState(false)
+
   // 存储到本地
   useEffect(() => {
     storage.setStorage('player_locked', locked)
@@ -92,6 +94,29 @@ const Player: FC<IProps> = () => {
             onClick={() => setLocked(!locked)}
           ></span>
         </div>
+        {/* 播放列表和歌词 */}
+        {showPlayList && (
+          <div className="playlist">
+            <div className="playlist-wrapper">
+              <div className="title">
+                <span className="title-content">播放列表(1)</span>
+                <span className="clear">
+                  <iconpark-icon style={{ fontSize: '16px' }} name="delete-9le67n53"></iconpark-icon>
+                  清除
+                </span>
+              </div>
+            </div>
+            <div className="lyrics-wrapper">
+              <div className="title">
+                <span></span>
+                <p className="title-content">{currentSong.name}</p>
+                <span className="close" onClick={() => setShowPlayList(false)}>
+                  <iconpark-icon className="icon" name="close-1"></iconpark-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="player-bar">
           <div className="play-btns">
             <span className="play-btn"></span>
@@ -150,7 +175,7 @@ const Player: FC<IProps> = () => {
           <div className="operation2">
             <span></span>
             <span></span>
-            <span>1</span>
+            <span onClick={() => setShowPlayList(!showPlayList)}>1</span>
           </div>
         </div>
       </div>

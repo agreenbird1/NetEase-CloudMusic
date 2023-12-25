@@ -1,3 +1,4 @@
+import commonCss from '@/assets/css/common.css'
 import styled from 'styled-components'
 
 const PlayerWrapper = styled.div`
@@ -68,6 +69,68 @@ const PlayerWrapper = styled.div`
             background-position: -40px -165px !important;
           }
         }
+      }
+    }
+
+    .playlist {
+      position: absolute;
+      bottom: calc(100% - 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      height: 300px;
+      background: rgba(0, 0, 0, 0.93);
+      border-radius: 6px 6px 0 0;
+      overflow: hidden;
+      .playlist-wrapper {
+        width: 553px;
+        .title {
+          ${commonCss.vCenter}
+          justify-content: space-between;
+          padding: 0 20px;
+          .title-content {
+            font-size: 14px;
+            color: #e2e2e2;
+            font-weight: bold;
+          }
+          .clear {
+            ${commonCss.center}
+            gap: 2px;
+            font-size: 12px;
+            color: #ccc;
+            cursor: pointer;
+            &:hover {
+              text-decoration: underline;
+              color: #e2e2e2;
+            }
+          }
+        }
+      }
+      .lyrics-wrapper {
+        width: 420px;
+        .title {
+          ${commonCss.center}
+          span {
+            width: 30px;
+            color: #616161;
+            &:hover {
+              color: #7c7c7c;
+            }
+          }
+          .title-content {
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+            flex: 1;
+          }
+          .close {
+            cursor: pointer;
+          }
+        }
+      }
+      .title {
+        background: #1e1e1e;
+        height: 40px;
       }
     }
 
@@ -170,8 +233,7 @@ const PlayerWrapper = styled.div`
     }
     .operation1 {
       span:nth-child(1) {
-        background: url(https://p1.music.126.net/DLVi_1eymwAX8gDunfd2bg==/109951165524394991.png)
-          no-repeat 0 0;
+        background: url(https://p1.music.126.net/DLVi_1eymwAX8gDunfd2bg==/109951165524394991.png) no-repeat 0 0;
         &:hover {
           background-position-y: -25px;
         }
