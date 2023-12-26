@@ -79,7 +79,7 @@ const PlayerWrapper = styled.div`
       transform: translateX(-50%);
       display: flex;
       height: 300px;
-      background: rgba(0, 0, 0, 0.93);
+      background: #161615;
       border-radius: 6px 6px 0 0;
       overflow: hidden;
       .playlist-wrapper {
@@ -103,6 +103,90 @@ const PlayerWrapper = styled.div`
               text-decoration: underline;
               color: #e2e2e2;
             }
+          }
+        }
+        .playlist-content {
+          .song {
+            display: flex;
+            align-items: center;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 12px;
+            height: 28px;
+            &:hover,
+            &.active {
+              color: #fff;
+              background: #000;
+              box-shadow: 0 0 0 1px #3e3c3c;
+            }
+            &:hover {
+              .operation1 {
+                visibility: unset;
+              }
+            }
+            &.active {
+              .play-btn {
+                visibility: unset;
+              }
+            }
+            .play-btn {
+              visibility: hidden;
+              width: 20px;
+              height: 28px;
+              padding-left: 10px;
+              background: url(https://s2.music.126.net/style/web2/img/frame/playlist.png?872237551e830cebc89ddff76caf4058)
+                no-repeat;
+              background-position: -174px 8px;
+            }
+            .name {
+              width: 260px;
+              padding-left: 10px;
+            }
+            .ar-name {
+              width: 80px;
+              padding-left: 10px;
+              ${commonCss.ellipsis}
+            }
+            .time {
+              width: 45px;
+              padding-left: 10px;
+            }
+            .operation1 {
+              visibility: hidden;
+              width: 88px;
+              padding-left: 10px;
+              scale: 0.9;
+            }
+            .delete-btn {
+              background: url(https://s2.music.126.net/style/web2/img/frame/playlist.png?872237551e830cebc89ddff76caf4058)
+                no-repeat;
+              background-position: -51px 0;
+              width: 20px;
+              height: 18px;
+              margin-left: 10px;
+              margin-top: 5px;
+            }
+          }
+        }
+        .no-content {
+          color: #aaa;
+          padding-top: 85px;
+          text-align: center;
+          line-height: 43px;
+          font-size: 12px;
+          i {
+            display: inline-block;
+            width: 36px;
+            height: 29px;
+            margin-right: 3px;
+            vertical-align: middle;
+            background: url(https://s2.music.126.net/style/web2/img/frame/playlist.png?872237551e830cebc89ddff76caf4058)
+              no-repeat;
+            background-position: -138px 0;
+          }
+          span {
+            text-decoration: underline;
+            cursor: pointer;
           }
         }
       }
@@ -131,6 +215,25 @@ const PlayerWrapper = styled.div`
         .lyrics-content-wrapper {
           overflow-y: scroll;
           margin: 20px 0;
+          &::-webkit-scrollbar {
+            width: 8px; /* 滚动条的宽度 */
+          }
+
+          /* 设置滚动条的轨道样式 */
+          &::-webkit-scrollbar-track {
+            background-color: #272827; /* 滚动条轨道的背景颜色 */
+          }
+
+          /* 设置滚动条滑块的样式 */
+          &::-webkit-scrollbar-thumb {
+            background-color: #888; /* 滚动条滑块的背景颜色 */
+            border-radius: 4px; /* 滚动条滑块的圆角 */
+          }
+
+          /* 设置滚动条滑块悬停时的样式 */
+          &::-webkit-scrollbar-thumb:hover {
+            background-color: #555; /* 滚动条滑块悬停时的背景颜色 */
+          }
           .lyrics {
             height: 220px;
             width: 354px;

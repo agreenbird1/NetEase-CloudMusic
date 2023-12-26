@@ -9,6 +9,8 @@ export interface IInitialState {
     lrc: ILyricItem[]
     tlyric: ILyricItem[]
   }
+  playing: boolean
+  currentList: Track[]
 }
 
 export const getSongLyricThunk = createAsyncThunk('common/lyric', (id: string, { dispatch }) => {
@@ -35,6 +37,8 @@ const initialState = {
     lrc: [] as any,
     tlyric: [] as any,
   },
+  playing: false,
+  currentList: [] as any,
 } as IInitialState
 
 const CommonInfoSlice = createSlice({
@@ -43,12 +47,29 @@ const CommonInfoSlice = createSlice({
   reducers: {
     setCurrentSong: (state, action) => {
       state.currentSong = action.payload
+      if (state.currentList.findIndex((song) => song.id === action.payload.id) === -1) {
+        state.currentList.push(action.payload)
+      }
     },
     setCurrentLyric: (state, action) => {
       state.lyric = action.payload
     },
+    setPlaying: (state, action) => {
+      state.playing = action.payload
+    },
+    addSong: (state, action) => {
+      if (state.currentList.findIndex((song) => song.id === action.payload.id) === -1) {
+        state.currentList.push(action.payload)
+      }
+    },
+    removeSong: (state, action) => {
+      state.currentList.splice(action.payload, 1)
+    },
+    clearList: (state) => {
+      state.currentList = []
+    },
   },
 })
 
-export const { setCurrentSong, setCurrentLyric } = CommonInfoSlice.actions
+export const { setCurrentSong, setCurrentLyric, setPlaying, addSong, removeSong, clearList } = CommonInfoSlice.actions
 export default CommonInfoSlice.reducer

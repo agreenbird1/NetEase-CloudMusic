@@ -1,3 +1,4 @@
+import { setPlaying } from '@/store/common-info';
 import { getSongLyricThunk } from './../common-info/index'
 
 export const setLyric = (store: any) => (next: any) => (action: any) => {
@@ -5,5 +6,6 @@ export const setLyric = (store: any) => (next: any) => (action: any) => {
   const { type } = action
   if (type === 'commonInfo/setCurrentSong') {
     store.dispatch(getSongLyricThunk(payload.id))
+    store.dispatch(setPlaying(true))
   }
 }
