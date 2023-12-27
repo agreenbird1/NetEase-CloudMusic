@@ -1,7 +1,12 @@
 import commonCss from '@/assets/css/common.css'
+import { PlayMode } from '@/store/common-info'
 import styled from 'styled-components'
 
-const PlayerWrapper = styled.div`
+interface IProps {
+  readonly playmode: PlayMode
+}
+
+const PlayerWrapper = styled.div<IProps>`
   position: fixed;
   zoom: 1;
   bottom: 0;
@@ -384,9 +389,31 @@ const PlayerWrapper = styled.div`
         }
       }
       span:nth-child(2) {
-        background-position: -3px -344px;
+        background-position: ${(props) => {
+          switch (props.playmode) {
+            case 0:
+              return '-3px -344px;'
+            case 1:
+              return '-66px -248px;'
+            case 2:
+              return '-66px -344px;'
+            default:
+              break
+          }
+        }};
         &:hover {
-          background-position: -33px -344px;
+          background-position: ${(props) => {
+            switch (props.playmode) {
+              case 0:
+                return '-33px -344px;'
+              case 1:
+                return '-93px -248px;'
+              case 2:
+                return '-93px -344px;'
+              default:
+                break
+            }
+          }};
         }
       }
       span:nth-child(3) {

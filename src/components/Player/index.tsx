@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import storage from '@/utils/storage'
 import { useAppDispatch, useAppSelector } from '@/store'
 import dayjs from 'dayjs'
-import { clearList, removeSong, setPlaying, setCurrentSong } from '@/store/common-info'
+import { clearList, removeSong, setPlaying, setCurrentSong, changePlayMode } from '@/store/common-info'
 
 interface IProps {
   children?: ReactNode
@@ -23,6 +23,7 @@ const Player: FC<IProps> = () => {
     lyric: { lrc },
     playing,
     currentList,
+    playMode,
   } = useAppSelector((state) => state.CommonInfoSlice)
 
   const localLocked = storage.getStorage<boolean>('player_locked')
@@ -62,11 +63,21 @@ const Player: FC<IProps> = () => {
     } else {
       audioRef.current?.pause()
     }
-  }, [playing, currentSong.id])
+  }, [playing, currentSong.id, dispatch])
 
   const playEnded = () => {
-    dispatch(setPlaying(false))
-    setProgress(0)
+    // 列表只有一首歌、单曲循环模式下，直接重置播放时间
+    if (currentList.length <= 1 || playMode === 2) {
+      audioRef.current!.currentTime = 0
+      audioRef.current?.play()
+    } else if (playMode === 0) {
+      // 列表循环模式下，播放下一首
+      cutSong(1)
+    } else {
+      // 随机模式下，随机播放
+      const index = Math.floor(Math.random() * currentList.length)
+      dispatch(setCurrentSong(currentList[index]))
+    }
   }
 
   const timeUpdate = () => {
@@ -146,7 +157,7 @@ const Player: FC<IProps> = () => {
   }
 
   return (
-    <PlayerWrapper>
+    <PlayerWrapper playmode={playMode}>
       <div
         className={classNames('player', {
           'player-locked': locked || showPlayList,
@@ -290,7 +301,7 @@ const Player: FC<IProps> = () => {
           </div>
           <div className="operation2">
             <span></span>
-            <span></span>
+            <span onClick={() => dispatch(changePlayMode(playMode === 0 ? 1 : playMode === 1 ? 2 : 0))}></span>
             <span onClick={() => setShowPlayList(!showPlayList)}>{currentList.length}</span>
           </div>
         </div>

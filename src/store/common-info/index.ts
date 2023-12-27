@@ -3,6 +3,8 @@ import { Track } from '@/service/discovery/playlist'
 import parseLyric, { ILyricItem } from '@/utils/parse-lyric'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
+export type PlayMode = 0 | 1 | 2 // 列表循环 随机 单曲循环
+
 export interface IInitialState {
   currentSong: Track
   lyric: {
@@ -11,6 +13,7 @@ export interface IInitialState {
   }
   playing: boolean
   currentList: Track[]
+  playMode: PlayMode
 }
 
 export const getSongLyricThunk = createAsyncThunk('common/lyric', (id: string, { dispatch }) => {
@@ -39,6 +42,7 @@ const initialState = {
   },
   playing: false,
   currentList: [] as any,
+  playMode: 0,
 } as IInitialState
 
 const CommonInfoSlice = createSlice({
@@ -68,8 +72,12 @@ const CommonInfoSlice = createSlice({
     clearList: (state) => {
       state.currentList = []
     },
+    changePlayMode: (state, action) => {
+      state.playMode = action.payload
+    },
   },
 })
 
-export const { setCurrentSong, setCurrentLyric, setPlaying, addSong, removeSong, clearList } = CommonInfoSlice.actions
+export const { setCurrentSong, setCurrentLyric, setPlaying, addSong, removeSong, clearList, changePlayMode } =
+  CommonInfoSlice.actions
 export default CommonInfoSlice.reducer

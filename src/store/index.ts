@@ -10,6 +10,7 @@ import { setLyric } from './middleware/set-lyric'
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['playing'], // 不进行持久化
 }
 const rootReducer = combineReducers({
   AuthSlice: persistReducer(persistConfig, AuthSlice),
