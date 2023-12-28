@@ -66,18 +66,18 @@ const Player: FC<IProps> = () => {
   }, [playing, currentSong.id, dispatch])
 
   const playEnded = () => {
+    // 列表没有歌曲，暂停播放
+    if (!currentList.length) {
+      dispatch(setPlaying(false))
+      audioRef.current!.currentTime = 0
+      audioRef.current?.pause()
+      return
+    }
     // 列表只有一首歌、单曲循环模式下，直接重置播放时间
-    if (currentList.length <= 1 || playMode === 2) {
+    if (playMode === 2) {
       audioRef.current!.currentTime = 0
       audioRef.current?.play()
-    } else if (playMode === 0) {
-      // 列表循环模式下，播放下一首
-      cutSong(1)
-    } else {
-      // 随机模式下，随机播放
-      const index = Math.floor(Math.random() * currentList.length)
-      dispatch(setCurrentSong(currentList[index]))
-    }
+    } else cutSong(1)
   }
 
   const timeUpdate = () => {
@@ -149,11 +149,31 @@ const Player: FC<IProps> = () => {
     if (!currentList.length) return
     const currentIndx = currentList.findIndex((song) => song.id === currentSong.id)
     if (currentIndex !== -1) {
-      let newIndex = currentIndx + num
-      if (newIndex === currentList.length) newIndex = 0
-      if (newIndex === -1) newIndex = currentList.length - 1
-      dispatch(setCurrentSong(currentList[newIndex]))
+      if (playMode === 0 || playMode === 2) {
+        // 列表循环模式下，播放下一首
+        let newIndex = currentIndx + num
+        if (newIndex === currentList.length) newIndex = 0
+        if (newIndex === -1) newIndex = currentList.length - 1
+        if (newIndex !== currentIndx) {
+          dispatch(setCurrentSong(currentList[newIndex]))
+        } else {
+          audioRef.current!.currentTime = 0
+          audioRef.current?.play()
+        }
+      } else {
+        // 随机模式下，随机播放
+        const index = Math.floor(Math.random() * currentList.length)
+        dispatch(setCurrentSong(currentList[index]))
+      }
+    } else {
+      // 如果是播放不在列表中的歌曲，切换播放第一首
+      dispatch(setCurrentSong(currentList[0]))
     }
+  }
+
+  const deleteSong = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>, index: number) => {
+    e.stopPropagation()
+    dispatch(removeSong(index))
   }
 
   return (
@@ -203,7 +223,7 @@ const Player: FC<IProps> = () => {
                       </div>
                       <span className="ar-name">{song.ar.map((artist) => artist.name).join(',')}</span>
                       <span className="time">{mmFormat(song.dt)}</span>
-                      <span className="delete-btn" onClick={() => dispatch(removeSong(index))}></span>
+                      <span className="delete-btn" onClick={(e) => deleteSong(e, index)}></span>
                     </li>
                   ))}
                 </ul>
